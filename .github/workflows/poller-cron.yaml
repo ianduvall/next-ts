@@ -1,0 +1,14 @@
+name: daily-cron
+on:
+  schedule:
+    # daily 8:00 UTC
+    - cron: "0 8 * * *"
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Kickoff poller
+        run: |
+          curl --request POST \
+          --url 'https://next-ts-sigma.vercel.app/api/cron/poller' \
+          --header 'Authorization: Bearer ${{ secrets.API_SECRET_KEY }}'
